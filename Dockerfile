@@ -37,17 +37,18 @@ ARG NODE_VERSION="lts/*"
 RUN if [ "${INSTALL_NODE}" = "true" ]; then su vscode -c "umask 0002 && . /usr/local/share/nvm/nvm.sh && nvm install ${NODE_VERSION} 2>&1"; fi
 
 # Install my tooling
-ARG INSTALL_NEOVIM="true"
 COPY library-scripts/github-ssh.sh \
-    library-scripts/update-bash.sh \
-    library-scripts/init.vim \
-    library-scripts/install-neovim.sh \
+    library-scripts/update-zsh.sh \
     /tmp/library-scripts/
-RUN bash /tmp/library-scripts/install-neovim.sh "${USERNAME}"  \
-    && bash /tmp/library-scripts/github-ssh.sh "${USERNAME}" \
-    && bash /tmp/library-scripts/update-bash.sh "${USERNAME}" \
+RUN bash /tmp/library-scripts/github-ssh.sh "${USERNAME}" \
+    && bash /tmp/library-scripts/update-zsh.sh "${USERNAME}" \
     && apt-get clean -y && rm -rf /var/lib/apt/lists/* /tmp/library-scripts
 
+# ARG INSTALL_NEOVIM="true"
+# COPY library-scripts/init.vim \
+#     library-scripts/install-neovim.sh \
+#     /tmp/library-scripts/
+# RUN bash /tmp/library-scripts/install-neovim.sh "${USERNAME}"
 
 # [Optional] Uncomment this section to install additional OS packages.
 # RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
