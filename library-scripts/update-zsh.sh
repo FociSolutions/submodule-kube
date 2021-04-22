@@ -35,5 +35,8 @@ sed -i 's/ZSH_THEME=".*"/ZSH_THEME="agnoster"/g' ${USER_RC_PATH}/.zshrc
 echo '# setting VI mode on the terminal 2021-01-30::wjs' >>${USER_RC_PATH}/.zshrc
 echo 'set -o vi' >>${USER_RC_PATH}/.zshrc
 
+# set the s/mime git commit signing
+# echo 'export GPPG_TTY=$(tty)'>>${USER_RC_PATH}/.zshrc
+
 # we want git to use nvim
 git config --global core.editor "nvim"

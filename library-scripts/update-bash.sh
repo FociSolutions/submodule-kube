@@ -35,5 +35,8 @@ sed -i 's/OSH_THEME=.*/OSH_THEME="powerline"/g' ${USER_RC_PATH}/.bashrc
 echo '# setting VI mode on the terminal 2021-01-30::wjs' >>${USER_RC_PATH}/.bashrc
 echo 'set -o vi' >>${USER_RC_PATH}/.bashrc
 
+# set the s/mime git commit signing
+# echo 'export GPPG_TTY=$(tty)'>>${USER_RC_PATH}/.zshrc
+
 # we want git to use vi
 git config --global core.editor "vi"
