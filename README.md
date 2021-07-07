@@ -1,4 +1,4 @@
-# Rust
+# Go
 
 This is intended to be used as a git sub-module. 
 
@@ -28,7 +28,15 @@ cd ..
 git submodule update
 ```
 
-More information:
+## SSH and Commit Signing
+
+The general idea is that I do not want tokens, credentials or passwords in the repo.  This means there will be inevitably some manual steps happening.  To start with we share the ~/.ssh folder with the docker image as ${user}/.ssh, as long as the ssh token have been properly configured in github this should work.
+
+```json
+    "source=${localEnv:HOME}/.ssh,target=/home/vscode/.ssh,type=bind,consistency=cached",
+```
+
+## More information:
 
 - [Atlassian Intro](https://www.atlassian.com/git/tutorials/git-submodule)
 - [Git Details](https://git-scm.com/book/en/v2/Git-Tools-Submodules)
