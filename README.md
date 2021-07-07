@@ -30,11 +30,24 @@ git submodule update
 
 ## SSH and Commit Signing
 
+### SSH
+
 The general idea is that I do not want tokens, credentials or passwords in the repo.  This means there will be inevitably some manual steps happening.  To start with we share the ~/.ssh folder with the docker image as ${user}/.ssh, as long as the ssh token have been properly configured in github this should work.
 
 ```json
     "source=${localEnv:HOME}/.ssh,target=/home/vscode/.ssh,type=bind,consistency=cached",
 ```
+
+### Commit Signing
+
+ A little more complex because there are actual manual steps to create the and sign the token.
+ 
+- copy the *.p12 file into the home folder of the WSL instance
+- use the dockerfile to copy *ALL* *.p12 files from a specific location to the docker image
+- copy the *.p12 file from the WSL to the docker instance
+  - `cp ${p12 file}.p12 
+ 
+ Again though, let's start with sharing the folder where the gpg token is stored.
 
 ## More information:
 

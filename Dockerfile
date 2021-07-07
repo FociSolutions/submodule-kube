@@ -57,6 +57,11 @@ RUN /bin/bash /tmp/library-scripts/configure-git.sh "${USERNAME}"
 COPY library-scripts/configure-sign.sh /tmp/library-scripts/
 RUN /bin/bash /tmp/library-scripts/configure-sign.sh "${USERNAME}"
 
+# Configure commit signing
+COPY certs/* /tmp/certs/ 
+RUN /bin/bash /tmp/certs/configure-cert.sh 
+
+
 # [Optional] Uncomment this section to install additional OS packages.
 # RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
 #     && apt-get -y install --no-install-recommends <your-package-list-here>
@@ -67,6 +72,7 @@ RUN /bin/bash /tmp/library-scripts/configure-sign.sh "${USERNAME}"
 # [Optional] Uncomment this line to install global node packages.
 # RUN su vscode -c "source /usr/local/share/nvm/nvm.sh && npm install -g <your-package-here>" 2>&1
 
-
 # Remove library scripts for final image
-# RUN rm -rf /tmp/library-scripts
+# RUN apt-get clean -y \
+#    && rm -rf /tmp/library-scripts \
+#    && rm -rf /var/lib/apt/lists/*
