@@ -1,3 +1,4 @@
+#! /bin/bash
 # Syntax: ./github-ssh.sh [username]
 
 USERNAME=${1:-"automatic"}
@@ -28,15 +29,26 @@ else
     USER_RC_PATH="/home/${USERNAME}"
 fi
 
-# we want the 'powerline' theme
-sed -i 's/ZSH_THEME=".*"/ZSH_THEME="agnoster"/g' ${USER_RC_PATH}/.zshrc
+# ensure oh-my-zsh is installed
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 
-# we want VI on the shell cli
-echo '# setting VI mode on the terminal 2021-01-30::wjs' >>${USER_RC_PATH}/.zshrc
-echo 'set -o vi' >>${USER_RC_PATH}/.zshrc
+ZSH_CUSTOM=$USER_RC_PATH/.oh-my-zsh/custom
 
-# set the s/mime git commit signing
-# echo 'export GPPG_TTY=$(tty)'>>${USER_RC_PATH}/.zshrc
+# we want the 'powerlevel10k' theme
+git clone https://github.com/romkatv/powerlevel10k.git $ZSH_CUSTOM/themes/powerlevel10k
+git clone https://github.com/zsh-users/zsh-autosuggestions.git $ZSH_CUSTOM/plugins/zsh-autosuggestions
+git clone https://github.com/zsh-users/zsh-syntax-highlighting.git $ZSH_CUSTOM/plugins/zsh-syntax-highlighting
 
-# we want git to use nvim
-git config --global core.editor "nvim"
+cp /tmp/library-scripts/.p10k.zsh $USER_RC_PATH/
+cp /tmp/library-scripts/.zshrc $USER_RC_PATH//
+# sed -i 's/ZSH_THEME=".*"/ZSH_THEME="powerlevel10k\/powerlevel10k"/g' ${USER_RC_PATH}/.zshrc
+# sed -i 's/#ENABLE_CORRECTION="true"/ENABLE_CORRECTION="true"/g' ${USER_RC_PATH}/.zshrc
+# sed -i 's/plugins=\(git\)/plugins=(git zsh-autosuggestions zsh-syntax-highlighting)/g' ${USER_RC_PATH}/.zshrc
+
+
+# # we want VI on the shell cli
+# echo '# setting VI mode on the terminal 2021-01-30::wjs' >>${USER_RC_PATH}/.zshrc
+# echo 'set -o vi' >>${USER_RC_PATH}/.zshrc
+
+# sourced from:
+# https://medium.com/@shivam1/make-your-terminal-beautiful-and-fast-with-zsh-shell-and-powerlevel10k-6484461c6efb

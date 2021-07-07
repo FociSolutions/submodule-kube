@@ -6,7 +6,7 @@
 			// Update the VARIANT arg to pick a version of Go: 1, 1.16, 1.15
 			"VARIANT": "1",
 			// Options
-			"INSTALL_NODE": "true",
+			"INSTALL_NODE": "false",
 			"NODE_VERSION": "lts/*"
 		}
 	},
@@ -17,9 +17,10 @@
 	],
 	// Set *default* container specific settings.json values on container create.
 	"settings": {
-		"terminal.integrated.shell.linux": "/bin/bash",
+		// "terminal.integrated.shell.linux": "/bin/bash",
+		"terminal.integrated.shell.linux": "/bin/zsh",
 		// this may be needed
-		// "lldb.executable": "/usr/bin/lldb",
+		"lldb.executable": "/usr/bin/lldb",
 		"go.toolsManagement.checkForUpdates": "local",
 		"go.useLanguageServer": true,
 		"go.gopath": "/go",
