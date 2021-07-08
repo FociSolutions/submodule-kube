@@ -40,7 +40,7 @@ The general idea is that I do not want tokens, credentials or passwords in the r
 
 ### Commit Signing
 
- A little more complex because there are actual manual steps to create the and sign the token.
+A little more complex because there are actual manual steps to create the and sign the token.
  
 - copy the *.p12 file into the home folder of the WSL instance
 - use the dockerfile to copy *ALL* *.p12 files from a specific location to the docker image

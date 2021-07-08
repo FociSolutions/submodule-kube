@@ -51,6 +51,7 @@
 		// "source=${localWorkspaceFolder}/.devcontainer/app-scripts,target=/usr/local/share/app-scripts,type=bind,consistency=cached",
 		// "source=${localEnv:HOME}/.ssh,target=${containerEnv:HOME}/.ssh,type=bind,consistency=cached",
 		"source=${localEnv:HOME}/.ssh,target=/home/vscode/.ssh,type=bind,consistency=cached",
+		"source=${localEnv:HOME}/.gnupg,target=/home/vscode/.gnupg,type=bind,consistency=cached",
 		// "source=${localEnv:HOME}/.gnupg/,target=/home/vscode/.gnupg,type=bind,consistency=cached"
 	],
 	// Uncomment the next line to run commands after the container is created - for example installing curl.
