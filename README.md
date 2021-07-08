@@ -40,6 +40,15 @@ The general idea is that I do not want tokens, credentials or passwords in the r
 
 ### Commit Signing
 
+> Taking the steps to create a gpg cert from [Signing your GitHub commits using GPG keys on Windows](https://kolappan.dev/blog/2021/signing-your-commits/).
+
+```sh
+gpg --full-key-gen --pinentry-mode loopback
+... etc
+```
+
+THe important thing here is the `--pinentry-mode loopback` and be sure that `export GPG_TTY=$(tty)` has been added to the shell rc file.
+
 A little more complex because there are actual manual steps to create the and sign the token.
  
 - copy the *.p12 file into the home folder of the WSL instance
