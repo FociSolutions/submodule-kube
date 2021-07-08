@@ -1,6 +1,7 @@
 #! /bin/bash 
-# USAGE: configure-cert.sh ${USERID}
-USERID=$1
+# USAGE: configure-cert.sh 
 
-# the batch, passphrase and pinentry-mode must be first before the quick-generate-key
-# gpg --batch --passphrase-file passphrase --pinentry-mode loopback --quick-generate-key $USERID ed25519
+git config --global user.signingkey $(gpg --list-secret-keys --keyid-format 0xlong | awk 'match($0,/0x/) {print substr($0, RSTART+2, 16)}')
+git config --global gpg.program $(which gpg)
+git config --global commit.gpgSign true
+git config --global tag.gpgSign true

@@ -40,17 +40,27 @@ The general idea is that I do not want tokens, credentials or passwords in the r
 
 ### Commit Signing
 
+A little more complex because there are actual manual steps to create the and sign the token.
+
 > Taking the steps to create a gpg cert from [Signing your GitHub commits using GPG keys on Windows](https://kolappan.dev/blog/2021/signing-your-commits/).
+
+Configure a gpg commit signing key on the WSL instance.
 
 ```sh
 gpg --full-key-gen --pinentry-mode loopback
 ... etc
 ```
 
-THe important thing here is the `--pinentry-mode loopback` and be sure that `export GPG_TTY=$(tty)` has been added to the shell rc file.
+- The important thing here is the `--pinentry-mode loopback` and be sure that `export GPG_TTY=$(tty)` has been added to the shell rc file.
 
-A little more complex because there are actual manual steps to create the and sign the token.
- 
+Mount e `~/.gnupg` folder with the dev container:
+
+```json
+    "source=${localEnv:HOME}/.gnupg,target=/home/vscode/.gnupg,type=bind,consistency=cached",
+```
+
+Run the git configuration steps on the docker image, this will require the public key.
+
 - copy the *.p12 file into the home folder of the WSL instance
 - use the dockerfile to copy *ALL* *.p12 files from a specific location to the docker image
 - copy the *.p12 file from the WSL to the docker instance
