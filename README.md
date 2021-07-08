@@ -61,6 +61,8 @@ Mount e `~/.gnupg` folder with the dev container:
 
 Run the git configuration steps on the docker image, this will require the public key.
 
+The final piece of the puzzle, the GPG commit signing requires a encryption key. Once the PGP key is generated in the WSL environment this "should just work".
+
 - copy the *.p12 file into the home folder of the WSL instance
 - use the dockerfile to copy *ALL* *.p12 files from a specific location to the docker image
 - copy the *.p12 file from the WSL to the docker instance
