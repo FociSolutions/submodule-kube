@@ -53,7 +53,7 @@ gpg --full-key-gen --pinentry-mode loopback
 
 - The important thing here is the `--pinentry-mode loopback` and be sure that `export GPG_TTY=$(tty)` has been added to the shell rc file.
 
-Mount e `~/.gnupg` folder with the dev container:
+Again though, let's start with sharing the folder where the gpg token is stored.  Mount e `~/.gnupg` folder with the dev container:
 
 ```json
     "source=${localEnv:HOME}/.gnupg,target=/home/vscode/.gnupg,type=bind,consistency=cached",
@@ -61,14 +61,23 @@ Mount e `~/.gnupg` folder with the dev container:
 
 Run the git configuration steps on the docker image, this will require the public key.
 
-The final piece of the puzzle, the GPG commit signing requires a encryption key. Once the PGP key is generated in the WSL environment this "should just work".
+The final piece of the puzzle, the GPG commit signing requires a encryption key. Once the PGP key is generated in the WSL environment this "should just work":tm .  Almost, the key turned out to be that for some reason the docker dev container doesn't take the default recipient, fixed that by adding the following line into the `~/.gnupg/gpg.conf` file:
 
-- copy the *.p12 file into the home folder of the WSL instance
-- use the dockerfile to copy *ALL* *.p12 files from a specific location to the docker image
-- copy the *.p12 file from the WSL to the docker instance
-  - `cp ${p12 file}.p12 
- 
- Again though, let's start with sharing the folder where the gpg token is stored.
+```
+recipient {your email accosicated with the token}
+```
+
+### Resources that Got Us Here
+
+- [Started with this](https://kolappan.dev/blog/2021/signing-your-commits/)
+- [creating subkeys](https://oguya.ch/posts/2016-04-01-gpg-subkeys/)
+- [Git - the horses mouth](https://git-scm.com/book/en/v2/Git-Tools-Signing-Your-Work)
+- [The hint that said we needed an encryption key](http://www.verycomputer.com/92_d9ba28a257565c3a_1.htm)
+- [Parsing the GPG output with **awk**](https://www.tutorialspoint.com/awk/awk_basic_examples.htm)
+- [GPG - though the actual `man gpg` was more useful](https://www.tutorialspoint.com/unix_commands/gpg.htm)
+- [Git - starting page of the set up for Github](https://docs.github.com/en/github/authenticating-to-github/managing-commit-signature-verification/about-commit-signature-verification)
+- [Some interesting stuff, can't remember if this actually told me anything new though](https://medium.com/@rwbutler/signing-commits-using-gpg-on-macos-7210362d15#:~:text=%20Signing%20Commits%20Using%20GPG%20on%20macOS%20,Alternatively%20when%20committing%2C%20supply%20the%20-S...%20More%20)
+- [Where you're gonna store these things on GitHub](https://github.com/settings/keys)
 
 ## More information:
 
