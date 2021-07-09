@@ -61,7 +61,7 @@ Again though, let's start with sharing the folder where the gpg token is stored.
 
 Run the git configuration steps on the docker image, this will require the public key.
 
-The final piece of the puzzle, the GPG commit signing requires a encryption key. Once the PGP key is generated in the WSL environment this "should just work":tm .  Almost, the key turned out to be that for some reason the docker dev container doesn't take the default recipient, fixed that by adding the following line into the `~/.gnupg/gpg.conf` file:
+The final piece of the puzzle, the GPG commit signing requires a encryption key. Once the PGP key is generated in the WSL environment this "should just work" &trade; .  Almost, the key turned out to be that for some reason the docker dev container doesn't take the default recipient, fixed that by adding the following line into the `~/.gnupg/gpg.conf` file:
 
 ```
 recipient {your email accosicated with the token}
