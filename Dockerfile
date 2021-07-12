@@ -1,30 +1,31 @@
-# [Choice] Go version: 1, 1.16, 1.15
-ARG VARIANT=1
-FROM golang:${VARIANT}
+# Note: You can use any Debian/Ubuntu based image you want. 
+FROM mcr.microsoft.com/vscode/devcontainers/base:0-buster
 
-# Copy library scripts to execute
-# COPY library-scripts/*.sh library-scripts/*.env /tmp/library-scripts/
-
-# [Option] Install zsh
+# Options
 ARG INSTALL_ZSH="true"
-# [Option] Upgrade OS packages to their latest versions
-ARG UPGRADE_PACKAGES="true"
-
-# Install needed packages and setup non-root user. Use a separate RUN statement to add your own dependencies.
+ARG UPGRADE_PACKAGES="false"
+ARG USE_MOBY="true"
 ARG USERNAME=vscode
 ARG USER_UID=1000
 ARG USER_GID=$USER_UID
+# Install needed packages and setup non-root user. Use a separate RUN statement to add your own dependencies.
+COPY library-scripts/*.sh /tmp/library-scripts/
+RUN apt-get update && /bin/bash /tmp/library-scripts/common-debian.sh "${INSTALL_ZSH}" "${USERNAME}" "${USER_UID}" "${USER_GID}" "${UPGRADE_PACKAGES}" "true" "true" \
+    && /bin/bash /tmp/library-scripts/docker-in-docker-debian.sh "true" "${USERNAME}" "${USE_MOBY}" \ 
+    && /bin/bash /tmp/library-scripts/kubectl-helm-debian.sh "latest" "latest" "latest" \
+    && mkdir -p /home/${USERNAME}/.minikube \
+    && chown ${USERNAME} /home/${USERNAME}/.minikube \
+    && apt-get autoremove -y && apt-get clean -y && rm -rf /var/lib/apt/lists/* /tmp/library-scripts/
 
-COPY library-scripts/common-debian.sh /tmp/library-scripts/
-RUN bash /tmp/library-scripts/common-debian.sh "${INSTALL_ZSH}" "${USERNAME}" "${USER_UID}" "${USER_GID}" "${UPGRADE_PACKAGES}" "true" "true" \
-    && apt-get clean -y && rm -rf /var/lib/apt/lists/*
+VOLUME [ "/var/lib/docker" ]
 
-# Install Go tools
-ENV GO111MODULE=auto
+# Setting the ENTRYPOINT to docker-init.sh will start up the Docker Engine 
+# inside the container "overrideCommand": false is set in devcontainer.json. 
+# The script will also execute CMD if you need to alter startup behaviors.
+ENTRYPOINT [ "/usr/local/share/docker-init.sh" ]
+CMD [ "sleep", "infinity" ]*
 
-COPY library-scripts/go-debian.sh /tmp/library-scripts/
-RUN bash /tmp/library-scripts/go-debian.sh "none" "/usr/local/go" "${GOPATH}" "${USERNAME}" "false" \
-    && apt-get clean -y && rm -rf /var/lib/apt/lists/*
+# My stuff
 
 # Configure bash
 # COPY library-scripts/update-bash.sh \
@@ -73,6 +74,6 @@ RUN /bin/bash /tmp/certs/configure-cert.sh
 # RUN su vscode -c "source /usr/local/share/nvm/nvm.sh && npm install -g <your-package-here>" 2>&1
 
 # Remove library scripts for final image
-# RUN apt-get clean -y \
-#    && rm -rf /tmp/library-scripts \
-#    && rm -rf /var/lib/apt/lists/*
+RUN apt-get clean -y \
+    && rm -rf /tmp/library-scripts \
+    && rm -rf /var/lib/apt/lists/*

@@ -1,61 +1,46 @@
 {
-	"name": "Go",
-	"build": {
-		"dockerfile": "Dockerfile",
-		"args": {
-			// Update the VARIANT arg to pick a version of Go: 1, 1.16, 1.15
-			"VARIANT": "1",
-			// Options
-			"INSTALL_NODE": "false",
-			"NODE_VERSION": "lts/*"
-		}
-	},
-	"runArgs": [
-		"--cap-add=SYS_PTRACE",
-		"--security-opt",
-		"seccomp=unconfined"
-	],
-	// Set *default* container specific settings.json values on container create.
-	"settings": {
-		// "terminal.integrated.shell.linux": "/bin/bash",
-		"terminal.integrated.shell.linux": "/bin/zsh",
-		// this may be needed
-		"lldb.executable": "/usr/bin/lldb",
-		"go.toolsManagement.checkForUpdates": "local",
-		"go.useLanguageServer": true,
-		"go.gopath": "/go",
-		"go.goroot": "/usr/local/go"
-	},
-	// Add the IDs of extensions you want installed when the container is created.
-	"extensions": [
-		// my common extensions
-		"vadimcn.vscode-lldb",
-		"mutantdino.resourcemonitor",
-		"formulahendry.code-runner",
-		"asciidoctor.asciidoctor-vscode",
-		"donjayamanne.githistory",
-		"mhutchie.git-graph",
-		"alefragnani.bookmarks",
-		"github.vscode-pull-request-github",
-		"eamodio.gitlens",
-		"hoovercj.vscode-power-mode",
-		// go
-		"golang.Go"
-	],
-	// Use 'forwardPorts' to make a list of ports inside the container available locally.
-	// "forwardPorts": [],
-	// Uncomment to use the Docker CLI from inside the container. See https://aka.ms/vscode-remote/samples/docker-from-docker.
-	// "mounts": [ "source=/var/run/docker.sock,target=/var/run/docker.sock,type=bind" ],
-	// the .gnupg folder is hard coded to the vscode user ... 
-	"mounts": [
-		// "source=${localWorkspaceFolder}/.devcontainer/app-scripts,target=/usr/local/share/app-scripts,type=bind,consistency=cached",
-		"source=${localEnv:HOME}/.ssh,target=/home/vscode/.ssh,type=bind,consistency=cached",
-		"source=${localEnv:HOME}/.gnupg,target=/home/vscode/.gnupg,type=bind,consistency=cached",
-	],
-	// Uncomment the next line to run commands after the container is created - for example installing curl.
-	// "postCreateCommand": "apt-get update && apt-get install -y curl",
-	// Use 'postCreateCommand' to run commands after the container is created.
-	"postCreateCommand": "go version",
-	// Comment out connect as root instead. More info: https://aka.ms/vscode-remote/containers/non-root.
-	"remoteUser": "vscode"
+  "name": "Kubernetes - Minikube-in-docker",
+  "dockerfile": "Dockerfile",
+  "runArgs": ["--init", "--privileged"],
+  // Set *default* container specific settings.json values on container create.
+  "settings": {
+    // "terminal.integrated.shell.linux": "/bin/bash",
+    "terminal.integrated.shell.linux": "/bin/zsh"
+  },
+  // Add the IDs of extensions you want installed when the container is created.
+  "extensions": [
+    // my common extensions
+    "vadimcn.vscode-lldb",
+    "mutantdino.resourcemonitor",
+    "formulahendry.code-runner",
+    "asciidoctor.asciidoctor-vscode",
+    "donjayamanne.githistory",
+    "mhutchie.git-graph",
+    "alefragnani.bookmarks",
+    "github.vscode-pull-request-github",
+    "eamodio.gitlens",
+    "hoovercj.vscode-power-mode",
+    // kube
+    "ms-azuretools.vscode-docker",
+    "ms-kubernetes-tools.vscode-kubernetes-tools"
+  ],
+  // Use 'forwardPorts' to make a list of ports inside the container available locally.
+  // "forwardPorts": [],
+  // Uncomment to use the Docker CLI from inside the container. See https://aka.ms/vscode-remote/samples/docker-from-docker.
+  // "mounts": [ "source=/var/run/docker.sock,target=/var/run/docker.sock,type=bind" ],
+  // the .gnupg folder is hard coded to the vscode user ...
+  "mounts": [
+    // "source=${localWorkspaceFolder}/.devcontainer/app-scripts,target=/usr/local/share/app-scripts,type=bind,consistency=cached",
+    // signing mounts
+    "source=${localEnv:HOME}/.ssh,target=/home/vscode/.ssh,type=bind,consistency=cached",
+    "source=${localEnv:HOME}/.gnupg,target=/home/vscode/.gnupg,type=bind,consistency=cached",
+    // minikube mounts
+    "source=minikube-var-lib-docker,target=/var/lib/docker,type=volume",
+    "source=minikube-config,target=/home/vscode/.minikube,type=volume"
+  ],
+  // Uncomment the next line to run commands after the container is created - for example installing curl.
+  // "postCreateCommand": "apt-get update && apt-get install -y curl",
+
+  // Comment out connect as root instead. More info: https://aka.ms/vscode-remote/containers/non-root.
+  "remoteUser": "vscode"
 }
