@@ -28,6 +28,10 @@ cd ..
 git submodule update
 ```
 
+33 General WSL
+
+- [Configuring WSL](https://docs.microsoft.com/en-us/windows/wsl/wsl-config#configure-global-options-with-wslconfig)
+
 ## SSH and Commit Signing
 
 ### SSH
@@ -78,6 +82,14 @@ git config --global user.signingkey 0xDDDDDDDD
 git config --global user.email 'walt.speelman@sectigo.com'
 ```
 
+Somewhere, I cannot find the original post anywhere, it was said that the command `export GPG_TTY=$(tty)` also needed to be executed.
+
+Other things that I still need to explore to help stablize the signing environment:
+
+- `gpgconf --kill gpg-agent`
+- `echo UPDATESTARTUPTTY | gpg-connect-agent`
+
+
 ### Resources that Got Us Here
 
 - [Started with this](https://kolappan.dev/blog/2021/signing-your-commits/)
@@ -89,6 +101,8 @@ git config --global user.email 'walt.speelman@sectigo.com'
 - [Git - starting page of the set up for Github](https://docs.github.com/en/github/authenticating-to-github/managing-commit-signature-verification/about-commit-signature-verification)
 - [Some interesting stuff, can't remember if this actually told me anything new though](https://medium.com/@rwbutler/signing-commits-using-gpg-on-macos-7210362d15#:~:text=%20Signing%20Commits%20Using%20GPG%20on%20macOS%20,Alternatively%20when%20committing%2C%20supply%20the%20-S...%20More%20)
 - [Where you're gonna store these things on GitHub](https://github.com/settings/keys)
+- [The online manpage for `gpgsm`](https://linux.die.net/man/1/gpgsm)
+- [Configuring `GPG_TTY`](https://www.gnupg.org/documentation/manuals/gnupg/Agent-Examples.html#Agent-Examples)
 
 ## More information:
 
