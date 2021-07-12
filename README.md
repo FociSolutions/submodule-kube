@@ -67,6 +67,17 @@ The final piece of the puzzle, the GPG commit signing requires a encryption key.
 recipient {your email accosicated with the token}
 ```
 
+### Sectigo x.506 - s/mime
+
+Run through the setup in as per the [Sectigo Documentation](https://confluence.comodoca.net/pages/viewpage.action?pageId=115377205).  When it comes to the part about configuring git the commands should be executed in the .devcontainer, only the following are really needed and could be scripted out per user and stored outside the container:
+
+```sh
+git config --global gpg.program $(which gpgsm)
+git config --global gpg.format x509
+git config --global user.signingkey 0xDDDDDDDD
+git config --global user.email 'walt.speelman@sectigo.com'
+```
+
 ### Resources that Got Us Here
 
 - [Started with this](https://kolappan.dev/blog/2021/signing-your-commits/)
