@@ -62,6 +62,9 @@ RUN /bin/bash /tmp/library-scripts/configure-sign.sh "${USERNAME}"
 COPY certs/* /tmp/certs/ 
 RUN /bin/bash /tmp/certs/configure-cert.sh 
 
+# install kustomize
+COPY library-scripts/inside-kustomize.sh /tmp/library-scripts/
+RUN /bin/bash /tmp/certs/install-kustomize:want.sh 
 
 # [Optional] Uncomment this section to install additional OS packages.
 # RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \

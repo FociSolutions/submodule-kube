@@ -84,6 +84,12 @@ git config --global user.email 'walt.speelman@sectigo.com'
 
 Somewhere, I cannot find the original post anywhere, it was said that the command `export GPG_TTY=$(tty)` also needed to be executed.
 
+THis seems to fix a couple of errors too:
+
+```sh
+gpgconf --kill gpg-agent
+```
+
 Other things that I still need to explore to help stablize the signing environment:
 
 - `gpgconf --kill gpg-agent`
