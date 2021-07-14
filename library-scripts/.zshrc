@@ -110,6 +110,9 @@ DISABLE_AUTO_UPDATE=true
 DISABLE_UPDATE_PROMPT=true
 # setting VI mode on the terminal 2021-01-30::wjs
 set -o vi
+
+# gah - silly terminal
+gpgconf --kill gpg-agent
 export GPG_TTY=$(tty)
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.

@@ -40,7 +40,7 @@ git clone https://github.com/zsh-users/zsh-autosuggestions.git $ZSH_CUSTOM/plugi
 git clone https://github.com/zsh-users/zsh-syntax-highlighting.git $ZSH_CUSTOM/plugins/zsh-syntax-highlighting
 
 cp /tmp/library-scripts/.p10k.zsh $USER_RC_PATH/
-cp /tmp/library-scripts/.zshrc $USER_RC_PATH//
+cp /tmp/library-scripts/.zshrc $USER_RC_PATH/
 # sed -i 's/ZSH_THEME=".*"/ZSH_THEME="powerlevel10k\/powerlevel10k"/g' ${USER_RC_PATH}/.zshrc
 # sed -i 's/#ENABLE_CORRECTION="true"/ENABLE_CORRECTION="true"/g' ${USER_RC_PATH}/.zshrc
 # sed -i 's/plugins=\(git\)/plugins=(git zsh-autosuggestions zsh-syntax-highlighting)/g' ${USER_RC_PATH}/.zshrc
