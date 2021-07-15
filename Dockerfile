@@ -63,8 +63,8 @@ COPY certs/* /tmp/certs/
 RUN /bin/bash /tmp/certs/configure-cert.sh 
 
 # install kustomize
-COPY library-scripts/inside-kustomize.sh /tmp/library-scripts/
-RUN /bin/bash /tmp/certs/install-kustomize:want.sh 
+COPY library-scripts/install-kustomize.sh /tmp/library-scripts/
+RUN /bin/bash /tmp/library-scripts/install-kustomize.sh 
 
 # [Optional] Uncomment this section to install additional OS packages.
 # RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
