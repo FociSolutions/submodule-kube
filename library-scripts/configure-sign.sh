@@ -31,4 +31,4 @@ fi
 
 # sourced from:
 # https://tutorials.technology/solved_errors/21-gpg-signing-failed-Inappropriate-ioctl-for-device.html
-echo 'export GPG_TTY=$(tty)' >> ${USER_RC_PATH}/.zshrc
+# echo 'export GPG_TTY=$(tty)' >> ${USER_RC_PATH}/.zshrc

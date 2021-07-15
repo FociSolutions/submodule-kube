@@ -39,4 +39,4 @@ echo 'set -o vi' >>${USER_RC_PATH}/.bashrc
 # echo 'export GPPG_TTY=$(tty)'>>${USER_RC_PATH}/.zshrc
 
 # we want git to use vi
-git config --global core.editor "vi"
+# git config --global core.editor "vi"

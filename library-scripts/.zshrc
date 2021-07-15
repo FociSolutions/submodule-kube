@@ -112,8 +112,8 @@ DISABLE_UPDATE_PROMPT=true
 set -o vi
 
 # gah - silly terminal
-gpgconf --kill gpg-agent
 export GPG_TTY=$(tty)
+gpgconf --kill gpg-agent
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
